@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BussinessObject;
 using Repository;
-namespace BookingVilla.Pages.HomePages
+namespace BookingVilla.Pages
 {
     public class ShowVillaModel : PageModel
     {

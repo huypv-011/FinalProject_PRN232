@@ -118,7 +118,7 @@
                 <nav class="main-menu">
                     <ul>
                         <li><a asp-page="/Index">Home</a></li>
-                        <li><a asp-page="/HomePages/ShowVilla">Villas</a></li>
+                        <li><a asp-page="/ShowVilla">Villas</a></li>
                         @if (userInfo != null)
                         {
                             @if (userInfo.Role == "emp")
@@ -126,8 +126,6 @@
                                 <li class="dropdown">
                                     <a href="#">Employee</a>
                                     <ul class="drop-menu">
-                                        <li><a asp-page="/Profile">View Customer</a></li>
-                                        <li><a asp-page="/Profile">Manage Service</a></li>
                                         <li><a asp-page="/ManageCancelBookingPages/ManageCancelBooking">Manage Cancel Booking</a></li>
                                     </ul>
                                 </li>
@@ -139,8 +137,8 @@
                                 </li>
                             }
                         }
-                        <li><a asp-page="/HomePages/Service">Services</a></li>
-                        <li><a asp-page="/HomePages/Contact">Contact</a></li>
+                        <li><a asp-page="/Service">Services</a></li>
+                        <li><a asp-page="/Contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>

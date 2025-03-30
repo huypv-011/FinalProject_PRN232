@@ -1,5 +1,5 @@
 ﻿@page
-@model BookingVilla.Pages.HomePages.ShowVillaModel
+@model ShowVillaModel
 @{
     ViewData["Title"] = "Villas";
 }
@@ -295,7 +295,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-7"></div>
-                                    <a href="/Booking?id=@villa.IdVilla&fromDate=@Model.FromDate&toDate=@Model.ToDate&numOfPeople=@Model.NumOfPeople" class="primary-btn col-lg-5">Book Now <i class="fa-solid fa-arrow-right"></i></a>
+                                    <a href="/ManageBookingPages/Booking?id=@villa.IdVilla&fromDate=@Model.FromDate&toDate=@Model.ToDate&numOfPeople=@Model.NumOfPeople" class="primary-btn col-lg-5">Book Now <i class="fa-solid fa-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>

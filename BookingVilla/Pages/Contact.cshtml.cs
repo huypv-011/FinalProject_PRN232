@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BookingVilla.Pages.HomePages
+namespace BookingVilla.Pages
 {
     public class ContactModel : PageModel
     {
