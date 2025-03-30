@@ -23,6 +23,7 @@ namespace BookingVilla
             builder.Services.AddScoped<IBookingHistoryRepositories, BookingHistoryRepositories>();
             builder.Services.AddScoped<ICancelBookingRepositories, CancelBookingRepositories>();
             builder.Services.AddScoped<IEmployeeRepositories, EmployeeRepositories>();
+            builder.Services.AddScoped<ITransactionRepositories, TransactionRepositories>();
             builder.Services.AddScoped<EmployeeDAO>();
 
             // Cấu hình Session

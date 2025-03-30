@@ -16,15 +16,8 @@ namespace DataAccess
             _context = context;
         }
 
-        public void AddTransaction(int idbooking, double total, DateTime currentDay)
+        public void AddTransaction(Transaction transaction)
         {
-            var transaction = new Transaction
-            {
-                IdTransactions = idbooking,
-                Price = total,
-                Date = currentDay
-            };
-
             _context.Transactions.Add(transaction);
             _context.SaveChanges();
         }
@@ -38,5 +31,45 @@ namespace DataAccess
                 _context.SaveChanges();
             }
         }
+        public MonthRevenue GetRevenue(int year)
+        {
+            var startDate = new DateTime(year, 1, 1);
+            var endDate = new DateTime(year + 1, 1, 1);
+
+            var monthlyRevenue = _context.Transactions
+                .Where(t => t.Date >= startDate && t.Date < endDate)
+                .GroupBy(t => new { Year = t.Date.Year, Month = t.Date.Month })
+                .Select(g => new
+                {
+                    Month = g.Key.Month,
+                    TotalPrice = g.Sum(t => t.Price)
+                })
+                .ToDictionary(x => x.Month, x => x.TotalPrice);
+
+            return new MonthRevenue
+            {
+                JanRevenue = monthlyRevenue.GetValueOrDefault(1, 0),
+                FebRevenue = monthlyRevenue.GetValueOrDefault(2, 0),
+                MarRevenue = monthlyRevenue.GetValueOrDefault(3, 0),
+                AprRevenue = monthlyRevenue.GetValueOrDefault(4, 0),
+                MayRevenue = monthlyRevenue.GetValueOrDefault(5, 0),
+                JuneRevenue = monthlyRevenue.GetValueOrDefault(6, 0),
+                JulyRevenue = monthlyRevenue.GetValueOrDefault(7, 0),
+                AugRevenue = monthlyRevenue.GetValueOrDefault(8, 0),
+                SepRevenue = monthlyRevenue.GetValueOrDefault(9, 0),
+                OctRevenue = monthlyRevenue.GetValueOrDefault(10, 0),
+                NovRevenue = monthlyRevenue.GetValueOrDefault(11, 0),
+                DecRevenue = monthlyRevenue.GetValueOrDefault(12, 0),
+            };
+        }
+        public List<int> GetYears()
+        {
+            return _context.Transactions
+                .Select(t => t.Date.Year) // Lấy năm từ cột Date
+                .Distinct() // Loại bỏ trùng lặp
+                .OrderBy(y => y) // Sắp xếp theo thứ tự tăng dần
+                .ToList(); // Chuyển thành danh sách
+        }
+
     }
 }

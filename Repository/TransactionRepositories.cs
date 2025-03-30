@@ -16,8 +16,12 @@ namespace Repository
         {
             _transactionDAO = new TransactionDAO(context);
         }
-        public void AddTransaction(int idbooking, double total, DateTime currentDay) => _transactionDAO.AddTransaction(idbooking, total, currentDay);
+        public void AddTransaction(Transaction transaction) => _transactionDAO.AddTransaction(transaction);
 
         public void DeleteTransaction(int idBooking) => _transactionDAO.DeleteTransaction(idBooking);
+
+        public MonthRevenue GetRevenue(int year) => _transactionDAO.GetRevenue(year);
+
+        public List<int> GetYears() => _transactionDAO.GetYears();
     }
 }

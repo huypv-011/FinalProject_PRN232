@@ -1,21 +1,29 @@
+﻿using BussinessObject;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Repository;
 
 namespace BookingVilla.Pages.RevenuePages
 {
     public class ManageRevenueModel : PageModel
     {
-        public List<int> Years { get; set; } = new List<int>();
+        private readonly ITransactionRepositories _transactionRepositories;
+        [BindProperty(SupportsGet = true)]
         public int YearChoosing { get; set; }
-        public Dictionary<string, decimal> MonthlyRevenue { get; set; } = new Dictionary<string, decimal>();
 
-        public ManageRevenueModel()
+        public List<int> Years { get; set; } = new List<int>();
+        public MonthRevenue Revenue { get; set; } = new MonthRevenue();
+
+        public ManageRevenueModel(ITransactionRepositories transactionRepositories)
         {
-            MonthlyRevenue = new Dictionary<string, decimal>
-            {
-                { "Jan", 0 }, { "Feb", 0 }, { "Mar", 0 }, { "Apr", 0 }, { "May", 0 }, { "Jun", 0 },
-                { "Jul", 0 }, { "Aug", 0 }, { "Sep", 0 }, { "Oct", 0 }, { "Nov", 0 }, { "Dec", 0 }
-            };
+            _transactionRepositories = transactionRepositories;
+        }
+        public IActionResult OnGet(int year = 0)
+        {
+            YearChoosing = (year != 0) ? year : DateTime.Now.Year;
+            Revenue = _transactionRepositories.GetRevenue(YearChoosing);
+            Years = _transactionRepositories.GetYears();
+            return Page();
         }
     }
 }

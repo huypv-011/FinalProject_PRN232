@@ -11,6 +11,7 @@ namespace BookingVilla.Pages.ManageBookingPages
         private readonly IVillaRepositories _villaRepository;
         private readonly IServiceRepositories _serviceRepository;
         private readonly IBookingRepositories _bookingRepository;
+        private readonly ITransactionRepositories _transactionRepositories;
 
         public Villa Villa { get; set; }
         public List<Service> ListService { get; set; } = new();
@@ -27,11 +28,12 @@ namespace BookingVilla.Pages.ManageBookingPages
         [BindProperty]
         public DateTime ToDate { get; set; } = DateTime.Today.AddDays(1);
 
-        public BookingModel(IVillaRepositories villaRepository, IServiceRepositories serviceRepository, IBookingRepositories bookingRepositories)
+        public BookingModel(IVillaRepositories villaRepository, IServiceRepositories serviceRepository, IBookingRepositories bookingRepositories, ITransactionRepositories transactionRepositories)
         {
             _villaRepository = villaRepository;
             _serviceRepository = serviceRepository;
             _bookingRepository = bookingRepositories;
+            _transactionRepositories = transactionRepositories;
         }
 
         public IActionResult OnGet(int id, string fromDate, string toDate, int numOfPeople)
@@ -128,8 +130,15 @@ namespace BookingVilla.Pages.ManageBookingPages
                     _bookingRepository.AddServiceBooking(idbooking, newAddService);
                 }
             }
+            var newTrans = new Transaction
+            {
+                Date = DateTime.Now,
+                IdTransactions = idbooking,
+                Price = totalPrice,
+            };
+            _transactionRepositories.AddTransaction(newTrans);
             TempData["SuccessMessage"] = "Booking Success!";
-            return RedirectToPage("ShowVilla");
+            return RedirectToPage("/ShowVilla");
         }
     }
 }
