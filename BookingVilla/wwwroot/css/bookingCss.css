@@ -1,0 +1,82 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    margin-right: 1rem;
+}
+
+
+
+.card-body {
+    padding: 20px;
+}
+
+h1, h2, h4 {
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.room-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.form-check-label {
+    margin-left: 10px;
+}
+
+
+
+.service-image {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.service-quantity {
+    width: 60px;
+    margin-left: 10px;
+}
+
+#total-price {
+    border: none;
+    background-color: transparent;
+    font-size: 1.25rem;
+    color: #28a745;
+    width: auto;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+
+
