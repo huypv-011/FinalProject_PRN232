@@ -13,6 +13,7 @@ namespace BookingVilla.Pages.ManageServicePages
             _serviceRepositories = serviceRepositories;
         }
         public List<Service> Services { get; set; }
+        [BindProperty]
         public string Search { get; set; }
         public void OnGet()
         {
@@ -24,6 +25,11 @@ namespace BookingVilla.Pages.ManageServicePages
             bool result = true;
             TempData["SuccessMessage"] = result ? "ok" : "fail";
             return RedirectToPage("/ManageService");
+        }
+        public IActionResult OnPost()
+        {
+            Services = _serviceRepositories.GetServiceByName(Search);
+            return Page();
         }
     }
 }

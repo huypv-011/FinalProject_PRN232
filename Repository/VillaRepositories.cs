@@ -48,6 +48,9 @@ namespace Repository
         public bool GetVillaConflict(int id) => villaDAO.GetVillaConflict(id);
 
         public List<int> GetVillaConflictIds(DateTime from, DateTime to) => GetVillaConflictIds(from, to);
+
+        public List<Villa> SearchByName(string name) => villaDAO.SearchByName(name);
+
         public void UpdateVillaStatus(int id) => villaDAO.UpdateVillaStatus(id);
     }
 }

@@ -152,5 +152,23 @@ namespace DataAccess
             }
             return false;
         }
+        public List<Account> GetAccountByName(string name)
+        {
+            return _context.Accounts
+                .Where(a => a.UserName.ToLower().Contains(name.ToLower()))
+                .ToList();
+        }
+        public List<Employee> SearchEmployee(string name)
+        {
+            name = name.ToLower(); // Chuyển đổi tên tìm kiếm về chữ thường
+
+            return _context.Employees
+                .Where(e => e.Name.ToLower().Contains(name) ||
+                            e.Address.ToLower().Contains(name) ||
+                            e.Email.ToLower().Contains(name) ||
+                            e.Phone.ToLower().Contains(name))
+                .ToList();
+        }
+
     }
 }

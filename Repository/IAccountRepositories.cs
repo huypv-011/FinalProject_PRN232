@@ -26,5 +26,7 @@ namespace Repository
         public List<Account> GetAllAccountPagination(int index);
         public bool UpdateRole(int id, string status);
         public bool BanAccount(int id, bool status);
+        public List<Account> GetAccountByName(string name);
+        public List<Employee> SearchEmployee(string name);
     }
 }

@@ -14,6 +14,7 @@ namespace BookingVilla.Pages.ManageVillaPages
         public int NumberPage { get; set; }
         public int Index { get; set; }
         public string Choice { get; set; }
+        [BindProperty]
         public string Search { get; set; }
 
         public ManageVillaModel(IVillaRepositories villaRepo)
@@ -52,7 +53,15 @@ namespace BookingVilla.Pages.ManageVillaPages
 
             TotalVilla = _villaRepo.GetNumberTotalVilla();
             NumberPage = _villaRepo.GetNumberVilla();
-            return RedirectToPage("/ManageVilla", new { choice });
+            return RedirectToPage("/ManageVillaPages/ManageVilla", new { choice });
+        }
+        public IActionResult OnPost()
+        {
+            Villas = _villaRepo.SearchByName(Search);
+            Index = 1;
+            TotalVilla = Villas.Count;
+            NumberPage = (TotalVilla / 4) + (TotalVilla % 4 > 0 ? 1 : 0);
+            return Page();
         }
         [IgnoreAntiforgeryToken]
         [HttpPost]

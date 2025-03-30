@@ -113,14 +113,29 @@ public class VillaDAO
         }
     }
 
-    public List<Villa> SearchVillaByName(string name)
+    public List<Villa> SearchByName(string name)
     {
+        var currentDate = DateTime.Today;
         return _context.Villas
-            .Include(v => v.PriceVillas)
-            .Where(v => v.Name.Contains(name) || v.Describe.Contains(name))
-            .OrderBy(v => v.AmountOfRoom)
+            .Where(v => v.Status == true &&
+                        v.Name.ToLower().Contains(name.ToLower())) // Tìm kiếm theo tên
+            .Select(v => new Villa
+            {
+                IdVilla = v.IdVilla,
+                Name = v.Name,
+                Describe = v.Describe,
+                AmountOfPeople = v.AmountOfPeople,
+                AmountOfRoom = v.AmountOfRoom,
+                Status = v.Status,
+                Price = v.PriceVillas
+                    .Where(p => currentDate >= p.FromDate && currentDate <= p.ToDate)
+                    .Select(p => p.PriceDay)
+                    .FirstOrDefault(), // Lấy giá đầu tiên phù hợp
+                ImageVillas = v.ImageVillas.ToList() // Giữ nguyên kiểu List<ImageVilla>
+            })
             .ToList();
     }
+
     public List<Villa> GetAllVillasByPrice(int index)
     {
         DateTime currentDay = DateTime.Today;

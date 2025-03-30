@@ -38,11 +38,15 @@ namespace DataAccess
         }
 
         // Tìm kiếm nhân viên theo tên, địa chỉ, email hoặc số điện thoại
-        public List<Employee> GetEmployeesByName(string search)
+        public List<Employee> GetEmployeesByName(string name)
         {
+            name = name.ToLower(); // Chuyển đổi tên tìm kiếm về chữ thường
+
             return _context.Employees
-                .Where(e => e.Name.Contains(search) || e.Address.Contains(search) ||
-                            e.Email.Contains(search) || e.Phone.Contains(search))
+                .Where(e => e.Name.ToLower().Contains(name) ||
+                            e.Address.ToLower().Contains(name) ||
+                            e.Email.ToLower().Contains(name) ||
+                            e.Phone.ToLower().Contains(name))
                 .ToList();
         }
 

@@ -60,8 +60,16 @@ namespace DataAccess
         // Tìm kiếm dịch vụ theo tên
         public List<Service> GetServiceByName(string name)
         {
+            name = name.ToLower(); // Chuyển về chữ thường để tìm kiếm không phân biệt hoa thường
             return _context.Services
-                .Where(s => EF.Functions.Like(s.Name, $"%{name}%"))
+                .Select(s => new Service
+                {
+                    IdService = s.IdService,
+                    Name = s.Name,
+                    Describe = s.Describe,
+                    Image = s.Image,
+                    Price = Convert.ToDouble(s.Price)
+                }).Where(s => s.Name.ToLower().Contains(name))
                 .ToList();
         }
 

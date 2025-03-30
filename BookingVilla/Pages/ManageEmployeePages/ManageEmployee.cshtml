@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Manage Villas</title>
+    <title>Admin Dashboard</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -72,6 +72,16 @@
     </style>
 </head>
 <body>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "Ban Success!" : "Ban Fail!")",
+                icon: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "success" : "error")",
+                confirmButtonText: "OK"
+            });
+        </script>
+    }
     <div class="wrapper">
         <div class="sidebar" data-image="~/img/sidebar-5.jpg">
             <div class="sidebar-wrapper" style="background-color: #353535">
@@ -117,7 +127,7 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-6"><h2>Manage <b>Villa</b></h2></div>
+                        <div class="col-sm-6"><h2>Manage <b>Employee</b></h2></div>
                         <div class="col-sm-6">
                             <form method="post">
                                 <input type="search" name="search" value="@Model.Search" placeholder="Search...">
@@ -152,11 +162,11 @@
                                 <td class="fixed-width">@s.Email</td>
                                 <td>@s.Phone</td>
                                 <td>@s.Salary.ToString("F0")</td>
-                                <td class="fixed-width"><img src="@s.Avatar" alt="Employee Avatar" style="width: 100%" /></td>
+                                <td class="fixed-width"><img src="/img/@s.Avatar" alt="Employee Avatar" style="width: 100%" /></td>
                                 <td>@(status ? "Normal" : "Ban")</td>
                                 <td style="white-space: nowrap">
-                                    <a asp-page="/UpdateStatusEmployee" asp-route-id="@s.IdEmployee">Unban</a> |
-                                    <a asp-page="/DeleteEmployee" asp-route-id="@s.IdEmployee">Ban</a>
+                                    <a asp-page="/ManageEmployeePages/BanEmployee" asp-route-id="@s.IdEmployee" asp-route-status="unban">Unban</a> |
+                                    <a asp-page="/ManageEmployeePages/BanEmployee" asp-route-id="@s.IdEmployee" asp-route-status="ban">Ban</a>
                                 </td>
                                 <td><a asp-page="/UpdateEmployee" asp-route-id="@s.IdEmployee">Update</a></td>
                             </tr>

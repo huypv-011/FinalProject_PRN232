@@ -26,5 +26,6 @@ namespace Repository
         public int AddVilla(Villa villa);
         public int AddImageVilla(ImageVilla image);
         public void AddPriceVilla(PriceVilla priceVilla);
+        public List<Villa> SearchByName(string name);
     }
 }

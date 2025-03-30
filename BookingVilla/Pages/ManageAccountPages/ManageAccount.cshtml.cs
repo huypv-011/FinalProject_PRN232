@@ -13,6 +13,7 @@ namespace BookingVilla.Pages.ManageAccountPages
         public int TotalAccounts { get; set; }
         public int NumberPage { get; set; }
         public int Index { get; set; } = 1;
+        [BindProperty]
         public string Search { get; set; }
         public ManageAccountModel(IAccountRepositories accountRepositories)
         {
@@ -30,6 +31,14 @@ namespace BookingVilla.Pages.ManageAccountPages
 
             // Tính số trang
             NumberPage = _accountRepositories.GetNumberAccount();
+        }
+        public IActionResult OnPost()
+        {
+            Index = 1;
+            AccountList = _accountRepositories.GetAccountByName(Search);
+            TotalAccounts = AccountList.Count;
+            NumberPage = (TotalAccounts / 12) + (TotalAccounts % 12 > 0 ? 1 : 0);
+            return Page();
         }
     }
 }

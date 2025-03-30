@@ -49,5 +49,9 @@ namespace Repository
         public bool UpdateRole(int id, string status) => _accountDAO.UpdateRole(id, status);
 
         public bool BanAccount(int id, bool status) => _accountDAO.BanAccount(id, status);
+
+        public List<Account> GetAccountByName(string name) => _accountDAO.GetAccountByName(name);
+
+        public List<Employee> SearchEmployee(string name) => _accountDAO.SearchEmployee(name);
     }
 }
