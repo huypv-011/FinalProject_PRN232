@@ -73,13 +73,32 @@
     {
         <script>
             Swal.fire({
-                title: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "Delete Success!" : "Delete Fail!")",
+                title: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "Delete Villa Success!" : "Delete Villa Fail!")",
                 icon: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "success" : "error")",
                 confirmButtonText: "OK"
             });
         </script>
     }
-
+    @if (TempData["SuccessMessage1"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: "@(TempData["SuccessMessage1"]?.ToString() == "ok" ? "Add New Villa Success!" : "Add New Villa Fail!")",
+                icon: "@(TempData["SuccessMessage1"]?.ToString() == "ok" ? "success" : "error")",
+                confirmButtonText: "OK"
+            });
+        </script>
+    }
+    @if (TempData["SuccessMessage2"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: "@(TempData["SuccessMessage2"]?.ToString() == "ok" ? "Update Villa Success!" : "Update Villa Fail!")",
+                icon: "@(TempData["SuccessMessage2"]?.ToString() == "ok" ? "success" : "error")",
+                confirmButtonText: "OK"
+            });
+        </script>
+    }
     <div class="wrapper">
         <div class="sidebar" data-image="~/img/sidebar-5.jpg">
             <div class="sidebar-wrapper" style="background-color: #353535">
@@ -128,14 +147,14 @@
                         <div class="col-sm-6"><h2>Manage <b>Villa</b></h2></div>
                         <div class="col-sm-6">
                             <form method="post">
-                                <input type="search" name="search" value="@Model.Search" placeholder="Search...">
+                                <input type="search" required name="search" value="@Model.Search" placeholder="Search...">
                                 <input style="color:black" type="submit" value="Search">
                                 <select style="color:black" name="list" onchange="orderBy(this)">
                                     <option value="price" selected="@(Model.Choice == "price" ? "selected" : null)">Price</option>
                                     <option value="people" selected="@(Model.Choice == "people" ? "selected" : null)">People</option>
                                     <option value="room" selected="@(Model.Choice == "room" ? "selected" : null)">Rooms</option>
                                 </select>
-                                <a href="#" id="addVilla" class="btn btn-success">
+                                <a href="/ManageVillaPages/AddNewVilla" class="btn btn-success">
                                     <i class="fa-solid fa-plus"></i> <span>Add New Villa</span>
                                 </a>
                             </form>
@@ -176,7 +195,7 @@
                                 <td style="text-align: center">@villa.AmountOfRoom</td>
                                 <td style="width: 8%">
                                     @* <a href="/Admin/EditVilla?id=@villa.IdVilla&list=Model.Choice">Update</a> | *@
-                                    <a href="#editServiceModal" class="edit" data-toggle="modal">
+                                    <a href="/ManageVillaPages/UpdateVilla?id=@villa.IdVilla" class="edit" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                     </a>
                                     <i class="fa-solid fa-grip-lines-vertical"></i>
@@ -229,70 +248,6 @@
                         }
                     });
                 });
-            });
-        });
-                        document.getElementById('addVilla').addEventListener('click', () => {
-            Swal.fire({
-                title: 'Add New Villa',
-                html:
-                    `<input id="villaName" class="swal2-input" placeholder="Villa Name">` +
-                    `<input id="villaDesc" class="swal2-input" placeholder="Description">` +
-                    `<input id="villaImage" type="file" class="swal2-input">` +
-                    `<input id="villaFrom" type="date" class="swal2-input">` +
-                    `<input id="villaTo" type="date" class="swal2-input">` +
-                    `<input id="villaPrice" type="number" class="swal2-input" placeholder="Price">` +
-                    `<input id="villaPeople" type="number" class="swal2-input" placeholder="Amount Of People">` +
-                    `<input id="villaRoom" type="number" class="swal2-input" placeholder="Amount Of Room">`,
-                showCancelButton: true,
-                confirmButtonText: 'Save',
-                preConfirm: () => {
-                    const name = document.getElementById('villaName').value;
-                    const description = document.getElementById('villaDesc').value;
-                    const fromDate = document.getElementById('villaFrom').value;
-                    const toDate = document.getElementById('villaTo').value;
-                    const price = document.getElementById('villaPrice').value;
-                    const people = document.getElementById('villaPeople').value;
-                    const room = document.getElementById('villaRoom').value;
-
-                    // Xử lý hình ảnh
-                    const imageInput = document.getElementById('villaImage');
-                    const imageFile = imageInput.files[0];
-
-                    if (!name || !price || !fromDate || !toDate || !people || !room || !imageFile) {
-                        Swal.showValidationMessage("Please enter all fields!");
-                        return false;
-                    }
-
-                    const formData = new FormData();
-                    formData.append("Name", name);
-                    formData.append("Description", description);
-                    formData.append("FromDate", fromDate);
-                    formData.append("ToDate", toDate);
-                    formData.append("Price", price);
-                    formData.append("People", people);
-                    formData.append("Room", room);
-                    formData.append("Image", imageFile);
-
-                                    fetch('/ManageVilla?handler=AddVilla', {
-            method: 'POST',
-            body: formData
-        })
-        .then(async response => {
-            if (!response.ok) {
-                let errorMessage = await response.text();
-                throw new Error(`Server error ${response.status}: ${errorMessage}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            Swal.fire('Success', 'Villa added!', 'success');
-        })
-        .catch(error => {
-            console.error("Fetch error:", error);
-            Swal.fire('Error', error.message, 'error');
-        });
-
-                }
             });
         });
     </script>

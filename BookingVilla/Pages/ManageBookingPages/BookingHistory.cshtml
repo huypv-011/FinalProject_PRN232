@@ -201,7 +201,7 @@
                         confirmButtonText: 'Yes, cancel it!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            fetch(`/BookingHistory?handler=CancelBooking&bookingId=${bookingId}`)
+                            fetch(`/ManageBookingPages/BookingHistory?handler=CancelBooking&bookingId=${bookingId}`)
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.success) {

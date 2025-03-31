@@ -1,6 +1,7 @@
 ﻿using BussinessObject;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using Repository;
 using System.Text.Json;
@@ -11,10 +12,12 @@ namespace BookingVilla.Pages.ManageBookingPages
     {
         private readonly IBookingHistoryRepositories _bookingHistoryRepositories;
         private readonly ICancelBookingRepositories _cancelBookingRepositories;
-        public BookingHistoryModel(IBookingHistoryRepositories bookingHistoryRepositories, ICancelBookingRepositories cancelBookingRepositories)
+        private readonly IHubContext<NewsHub> _hubContext;
+        public BookingHistoryModel(IBookingHistoryRepositories bookingHistoryRepositories, ICancelBookingRepositories cancelBookingRepositories, IHubContext<NewsHub> hubContext)
         {
             _bookingHistoryRepositories = bookingHistoryRepositories;
             _cancelBookingRepositories = cancelBookingRepositories;
+            _hubContext = hubContext;
         }
         public List<BookingHistory> BookingHistoryList { get; set; }
 
@@ -41,7 +44,7 @@ namespace BookingVilla.Pages.ManageBookingPages
             };
 
             bool result = _cancelBookingRepositories.AddCancelBooking(cancelBooking);
-
+            _hubContext.Clients.All.SendAsync("ReceiveNewCancelBooking", "Have New Cancel Booking!");
             return new JsonResult(new { success = result });
         }
     }

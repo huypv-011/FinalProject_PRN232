@@ -74,7 +74,7 @@
     {
         <script>
             Swal.fire({
-                title: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "Ban Success!" : "Ban Fail!")",
+                title: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "Update Status Success!" : "Update Status Fail!")",
                 icon: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "success" : "error")",
                 confirmButtonText: "OK"
             });
@@ -128,7 +128,7 @@
                         <div class="col-sm-6"><h2>Manage <b>Employee</b></h2></div>
                         <div class="col-sm-6">
                             <form method="post">
-                                <input type="search" name="search" value="@Model.Search" placeholder="Search...">
+                                <input type="search" required name="search" value="@Model.Search" placeholder="Search...">
                                 <input style="color:black" type="submit" value="Search">
                             </form>
                         </div>

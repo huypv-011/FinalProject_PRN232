@@ -309,6 +309,7 @@
         }
     </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script>
                  // Lấy thẻ h2 bằng class
 
@@ -366,5 +367,15 @@
                         nextDateInput.value = nextDate.toISOString().split('T')[0];
                     }
                 }
+                const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/newsHub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
 
+    connection.start().catch(err => console.error(err.toString()));
+
+    connection.on("ReceiveNewVilla", function (message) {
+        alert("New update: " + message);
+        location.reload(); // Tải lại trang nếu cần
+    });
 </script>

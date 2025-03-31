@@ -37,12 +37,7 @@ namespace BookingVilla
 
             // Cấu hình Razor Pages và CORS
             builder.Services.AddRazorPages();
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin()
-                                                               .AllowAnyMethod()
-                                                               .AllowAnyHeader());
-            });
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -59,14 +54,7 @@ namespace BookingVilla
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-            app.UseCors("AllowAll");
-
-            // Ghi log Content-Type của request (nếu cần debug)
-            app.Use(async (context, next) =>
-            {
-                Console.WriteLine($"Request Content-Type: {context.Request.ContentType}");
-                await next();
-            });
+            app.MapHub<NewsHub>("/newsHub");
 
             // Cấu hình Endpoint cho Razor Pages
             app.UseEndpoints(endpoints =>

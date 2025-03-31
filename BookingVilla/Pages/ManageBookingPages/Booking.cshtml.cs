@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository;
+using System.Globalization;
 using System.Text.Json;
 
 namespace BookingVilla.Pages.ManageBookingPages
@@ -92,7 +93,8 @@ namespace BookingVilla.Pages.ManageBookingPages
             }
 
             // Lấy tổng giá từ input "total-price"
-            if (!double.TryParse(Request.Form["total"], out double totalPrice))
+            var totalString = Request.Form["total"].ToString().Replace(".", "").Replace(",", ".");
+            if (!double.TryParse(totalString, NumberStyles.Any, CultureInfo.InvariantCulture, out double totalPrice))
             {
                 ErrorMessage = "Lỗi khi lấy tổng giá.";
                 return Page();

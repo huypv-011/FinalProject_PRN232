@@ -33,9 +33,6 @@ public class VillaDAO
             .OrderBy(v => v.AmountOfRoom)
             .ToList();
     }
-
-
-
     public List<int> GetVillaConflictIds(DateTime from, DateTime to)
     {
         return _context.BookingOnlines
@@ -59,7 +56,7 @@ public class VillaDAO
     public Villa GetVillaById(int id, DateTime currentDate)
     {
         return _context.Villas
-            .Where(v => v.IdVilla == id)
+            .Where(v => v.IdVilla == id && v.Status == true)
             .Select(v => new Villa
             {
                 IdVilla = v.IdVilla,
@@ -71,7 +68,8 @@ public class VillaDAO
                 Price = v.PriceVillas
                     .Where(p => currentDate >= p.FromDate && currentDate <= p.ToDate)
                     .Select(p => p.PriceDay)
-                    .FirstOrDefault(), // Lấy giá đầu tiên phù hợp
+                    .FirstOrDefault(), // Lấy giá phù hợp với ngày hiện tại
+                ImageVillas = v.ImageVillas.ToList() // Giữ nguyên kiểu List<ImageVilla>
             })
             .FirstOrDefault();
     }
@@ -79,7 +77,9 @@ public class VillaDAO
 
     public PriceVilla GetPriceVillaByIdVilla(int id)
     {
+        var currentDate = DateTime.Now;
         return _context.PriceVillas
+            .Where(p => currentDate >= p.FromDate && currentDate <= p.ToDate)
             .FirstOrDefault(p => p.IdVilla == id);
     }
 
@@ -249,7 +249,7 @@ public class VillaDAO
             existingVilla.Describe = villa.Describe;
             existingVilla.AmountOfPeople = villa.AmountOfPeople;
             existingVilla.AmountOfRoom = villa.AmountOfRoom;
-
+            _context.Update(existingVilla);
             _context.SaveChanges();
         }
     }
@@ -264,7 +264,7 @@ public class VillaDAO
             existingPrice.FromDate = priceVilla.FromDate;
             existingPrice.ToDate = priceVilla.ToDate;
             existingPrice.PriceDay = priceVilla.PriceDay;
-
+            _context.Update(existingPrice);
             _context.SaveChanges();
         }
     }

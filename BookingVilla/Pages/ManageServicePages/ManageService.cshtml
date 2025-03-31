@@ -68,8 +68,28 @@
     {
         <script>
             Swal.fire({
-                title: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "Delete Success!" : "Delete Fail!")",
+                title: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "Delete Service Success!" : "Delete Service Fail!")",
                 icon: "@(TempData["SuccessMessage"]?.ToString() == "ok" ? "success" : "error")",
+                confirmButtonText: "OK"
+            });
+        </script>
+    }
+    @if (TempData["SuccessMessage1"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: "@(TempData["SuccessMessage1"]?.ToString() == "ok" ? "Add New Service Success!" : "Add New Service Fail!")",
+                icon: "@(TempData["SuccessMessage1"]?.ToString() == "ok" ? "success" : "error")",
+                confirmButtonText: "OK"
+            });
+        </script>
+    }
+    @if (TempData["SuccessMessage2"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: "@(TempData["SuccessMessage2"]?.ToString() == "ok" ? "Update Service Success!" : "Update Service Fail!")",
+                icon: "@(TempData["SuccessMessage2"]?.ToString() == "ok" ? "success" : "error")",
                 confirmButtonText: "OK"
             });
         </script>
@@ -122,9 +142,9 @@
                         <div class="col-sm-6"><h2>Manage <b>Service</b></h2></div>
                         <div class="col-sm-6">
                             <form method="post">
-                                <input type="search" name="search" value="@Model.Search" placeholder="Search...">
+                                <input type="search" required name="search" value="@Model.Search" placeholder="Search...">
                                 <input style="color:black" type="submit" value="Search">
-                                <a href="#addVillaModal" class="btn btn-success" data-toggle="modal">
+                                <a href="/ManageServicePages/AddNewService" class="btn btn-success" data-toggle="modal">
                                     <i class="fa-solid fa-plus"></i> <span>Add New Service</span>
                                 </a>
                             </form>
@@ -151,8 +171,7 @@
                                 <td><span class="price">@s.Price</span></td>
                                 <td width="60%">@s.Describe</td>
                                 <td>
-                                    <a href="#editServiceModal" class="edit" data-toggle="modal"
-                                       >
+                                    <a href="/ManageServicePages/UpdateService?id=@s.IdService" class="edit" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                     </a>
                                     <i class="fa-solid fa-grip-lines-vertical"></i>

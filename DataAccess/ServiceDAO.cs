@@ -42,7 +42,15 @@ namespace DataAccess
         // Lấy dịch vụ theo ID
         public Service GetServiceById(int idService)
         {
-            return _context.Services.FirstOrDefault(s => s.IdService == idService);
+            return _context.Services
+                .Select(s => new Service
+                {
+                    IdService = s.IdService,
+                    Name = s.Name,
+                    Describe = s.Describe,
+                    Image = s.Image,
+                    Price = Convert.ToDouble(s.Price)
+                }).FirstOrDefault(s => s.IdService == idService);
         }
 
         // Lấy danh sách dịch vụ theo tên (sắp xếp theo tên)
@@ -84,14 +92,14 @@ namespace DataAccess
         // Chỉnh sửa dịch vụ
         public int EditService(Service service)
         {
-            var existingService = _context.Services.Find(service.IdService);
+            var existingService = GetServiceById(service.IdService);
             if (existingService != null)
             {
                 existingService.Name = service.Name;
                 existingService.Describe = service.Describe;
                 existingService.Image = service.Image;
                 existingService.Price = service.Price;
-
+                _context.Update(existingService);
                 return _context.SaveChanges();
             }
             return 0;

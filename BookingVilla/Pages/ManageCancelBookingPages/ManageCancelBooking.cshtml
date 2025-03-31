@@ -416,10 +416,21 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
     <script>
+            const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/newsHub")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        connection.on("ReceiveNewCancelBooking", function (message) {
+            alert("New update: " + message);
+            location.reload(); // Tải lại trang nếu cần
+        });
         const orderBy = (item) => {
-            window.location.href = "/ManageCancelBooking?choice=" + encodeURIComponent(item.value);
+            window.location.href = "/ManageCancelBookingPages/ManageCancelBooking?choice=" + encodeURIComponent(item.value);
         };
         function confirmApproveCancelBooking(idcanclebooking, idbooking) {
             Swal.fire({
@@ -434,7 +445,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Chuyển hướng đến servlet khác kèm theo idcanclebooking
-                    window.location = "ManageCancelBooking?handler=ApproveCancelBooking&idcancelbooking=" + idcanclebooking;
+                    window.location = "/ManageCancelBookingPages/ManageCancelBooking?handler=ApproveCancelBooking&idcancelbooking=" + idcanclebooking;
 
                 }
             });
@@ -452,7 +463,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Chuyển hướng đến servlet khác kèm theo idcanclebooking
-                    window.location = "ManageCancelBooking?handler=RejectCancelBooking&idcancelbooking=" + idcanclebooking;
+                    window.location = "/ManageCancelBookingPages/ManageCancelBooking?handler=RejectCancelBooking&idcancelbooking=" + idcanclebooking;
 
                 }
             });

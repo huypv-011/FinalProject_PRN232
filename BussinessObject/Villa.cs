@@ -14,9 +14,9 @@ public partial class Villa
 
     public double? Point { get; set; }
 
-    public int? AmountOfPeople { get; set; }
+    public int AmountOfPeople { get; set; }
 
-    public int? AmountOfRoom { get; set; }
+    public int AmountOfRoom { get; set; }
 
     public bool? Status { get; set; }
     [NotMapped]

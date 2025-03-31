@@ -18,10 +18,7 @@ namespace Repository
 
         public int AddImageVilla(ImageVilla image) => villaDAO.AddImageVilla(image);
 
-        public void AddPriceVilla(PriceVilla priceVilla)
-        {
-            villaDAO.AddPriceVilla(priceVilla);
-        }
+        public void AddPriceVilla(PriceVilla priceVilla) => villaDAO.AddPriceVilla(priceVilla);
 
         public int AddVilla(Villa villa) => villaDAO.AddVilla(villa);
 
@@ -50,6 +47,10 @@ namespace Repository
         public List<int> GetVillaConflictIds(DateTime from, DateTime to) => GetVillaConflictIds(from, to);
 
         public List<Villa> SearchByName(string name) => villaDAO.SearchByName(name);
+
+        public void UpdatePriceVilla(PriceVilla priceVilla) => villaDAO.UpdatePriceVilla(priceVilla);
+
+        public void UpdateVilla(Villa villa) => villaDAO.UpdateVilla(villa);
 
         public void UpdateVillaStatus(int id) => villaDAO.UpdateVillaStatus(id);
     }
