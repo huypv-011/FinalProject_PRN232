@@ -7,9 +7,9 @@ public partial class BookingOnline
 {
     public int IdBookingOnline { get; set; }
 
-    public DateTime? CheckinDate { get; set; }
+    public DateTime CheckinDate { get; set; }
 
-    public DateTime? CheckoutDate { get; set; }
+    public DateTime CheckoutDate { get; set; }
 
     public int? AmountOfPeople { get; set; }
 

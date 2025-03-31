@@ -25,5 +25,11 @@ namespace Repository
         public List<Service> GetServiceByPrice(double price) => _serviceDAO.GetServiceByPrice(price);
         public int EditService(Service service) => _serviceDAO.EditService(service);
         public void DeleteService(int idService) => _serviceDAO.DeleteService(idService);
+
+        public List<Service> GetAllServicePagination(int index) => _serviceDAO.GetAllServicePagination(index);
+
+        public int GetNumberTotalService() => _serviceDAO.GetNumberTotalService();
+
+        public int GetNumberService() => _serviceDAO.GetNumberService();
     }
 }

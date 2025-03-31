@@ -104,7 +104,6 @@
                             <div class="avatar-container"> 
                                 <img src="@(userInfo.Avatar ?? "/img/Default_avatar_profile.jpg")" alt="Avatar" class="avatar" id="avatar" /> 
                                 <div class="dropdownmenu" id="dropdownmenu"> 
-                                    <a asp-page="/Profile">Profile</a> 
                                     @if (userInfo.Role == "us")
                                     {
                                         <a asp-page="/ManageBookingPages/BookingHistory">Booking History</a>
@@ -124,10 +123,7 @@
                             @if (userInfo.Role == "emp")
                             {
                                 <li class="dropdown">
-                                    <a href="#">Employee</a>
-                                    <ul class="drop-menu">
-                                        <li><a asp-page="/ManageCancelBookingPages/ManageCancelBooking">Manage Cancel Booking</a></li>
-                                    </ul>
+                                    <a asp-page="/ManageCancelBookingPages/ManageCancelBooking">Employee</a>
                                 </li>
                             }
                             else if (userInfo.Role == "ad")

@@ -115,6 +115,38 @@ namespace DataAccess
                 _context.SaveChanges();
             }
         }
+        public List<Service> GetAllServicePagination(int index)
+        {
+            {
+                return _context.Services.Select(s => new Service
+                {
+                    IdService = s.IdService,
+                    Name = s.Name,
+                    Describe = s.Describe,
+                    Image = s.Image,
+                    Price = Convert.ToDouble(s.Price)
+                })
+                    .OrderByDescending(a => a.IdService) // Sắp xếp theo Status DESC
+                    .Skip((index - 1) * 4) // OFFSET
+                    .Take(4)
+                    .ToList();
+            }
+        }
+        public int GetNumberTotalService()
+        {
+            return _context.Services.Count();
+        }
+
+        public int GetNumberService()
+        {
+            int total = _context.Services.Count();
+            int countPage = total / 4;
+            if (total % 4 != 0)
+            {
+                countPage++;
+            }
+            return countPage;
+        }
     }
 }
 

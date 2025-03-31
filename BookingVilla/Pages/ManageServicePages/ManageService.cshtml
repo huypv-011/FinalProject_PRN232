@@ -183,6 +183,27 @@
                         }
                     </tbody>
                 </table>
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b>4</b> out of <b>@Model.TotalServices</b> entries</div>
+                    <ul class="pagination">
+                        @if (Convert.ToInt32(Model.Index) > 1)
+                        {
+                            <li class="page-item"><a asp-page="ManageService" asp-route-index="@(Convert.ToInt32(Model.Index) - 1)">Previous</a></li>
+                        }
+
+                        @for (int i = 1; i <= Convert.ToInt32(Model.NumberPage); i++)
+                        {
+                            <li class="page-item @(Convert.ToInt32(Model.Index) == i ? "active" : "")">
+                                <a asp-page="ManageService" asp-route-index="@i" class="page-link">@i</a>
+                            </li>
+                        }
+
+                        @if (Convert.ToInt32(Model.Index) < Convert.ToInt32(Model.NumberPage))
+                        {
+                            <li class="page-item"><a asp-page="ManageService" asp-route-index="@(Convert.ToInt32(Model.Index) + 1)" class="page-link">Next</a></li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

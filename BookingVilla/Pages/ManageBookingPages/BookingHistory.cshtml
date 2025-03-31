@@ -89,7 +89,7 @@
 
 <div class="container">
     <h1 class="mt-4 mb-4">Room Booking History</h1>
-    <a class="tag-a" asp-page="/BookingCanceled">Booking Canceled</a>
+    <a class="tag-a" asp-page="/ManageBookingPages/CanceledBooking">Booking Canceled</a>
     <table class="table">
         <thead>
             <tr>
@@ -111,8 +111,8 @@
             {
                 <tr>
                     <td>@booking.NameVilla</td>
-                    <td>@booking.CheckinDate.GetValueOrDefault().ToString("dd-MM-yyyy")</td>
-                    <td>@booking.CheckoutDate.GetValueOrDefault().ToString("dd-MM-yyyy")</td>
+                    <td>@booking.CheckinDate.ToString("dd-MM-yyyy")</td>
+                    <td>@booking.CheckoutDate.ToString("dd-MM-yyyy")</td>
                     <td>@booking.AmountOfPeople</td>
                     <td style="width: 260px">
                         @if (booking.ServicesIncluded != null && booking.ServicesIncluded.Any())
@@ -131,7 +131,7 @@
                             <button class="cancel-button"
                                     data-status="@booking.Status"
                                     data-booking-id="@booking.IdBookingOnline"
-                                    data-checkin-date="@booking.CheckinDate.GetValueOrDefault().ToString("dd-MM-yyyy")">
+                                    data-checkin-date="@booking.CheckinDate.ToString("dd-MM-yyyy")">
                                 Cancel Booking
                             </button>
                         </td>
@@ -157,11 +157,6 @@
             }
         </tbody>
     </table>
-    <form method="post" id="theForm" asp-page-handler="ViewVilla">
-        <input type="hidden" name="id" id="idVilla">
-        <input type="hidden" name="fromDate" value="2024-06-11">
-        <input type="hidden" name="toDate" value="2024-07-11">
-    </form>
 </div>
 <script>
         document.addEventListener('DOMContentLoaded', () => {

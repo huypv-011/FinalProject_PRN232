@@ -37,7 +37,7 @@ public class BookingHistoryDAO
                     .Select(ca => ca.Status)
                     .FirstOrDefault()
             })
-            .Where(b => b.Status != "Rejected")
+            .Where(b => b.Status != "Rejected" && b.Status != null)
             .OrderByDescending(b => b.IdBookingOnline)
             .ToList();
     }

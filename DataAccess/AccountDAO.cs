@@ -119,9 +119,8 @@ namespace DataAccess
         }
         public List<Account> GetAllAccountPagination(int index)
         {
-            using (var context = new BookingVillaPrnContext())
             {
-                return context.Accounts
+                return _context.Accounts
                     .OrderByDescending(a => a.IdAccount) // Sắp xếp theo Status DESC
                     .Skip((index - 1) * 12) // OFFSET
                     .Take(12) // FETCH FIRST 5 ROWS ONLY

@@ -18,5 +18,8 @@ namespace Repository
         List<Service> GetServiceByPrice(double price);
         int EditService(Service service);
         void DeleteService(int idService);
+        public List<Service> GetAllServicePagination(int index);
+        public int GetNumberTotalService();
+        public int GetNumberService();
     }
 }
