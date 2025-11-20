@@ -13,6 +13,9 @@ namespace BookingVilla.Pages.ManageBookingPages
         private readonly IBookingHistoryRepositories _bookingHistoryRepositories;
         private readonly ICancelBookingRepositories _cancelBookingRepositories;
         private readonly IHubContext<NewsHub> _hubContext;
+        public int TotalAccounts { get; set; }
+        public int NumberPage { get; set; }
+        public int Index { get; set; } = 1;
         public BookingHistoryModel(IBookingHistoryRepositories bookingHistoryRepositories, ICancelBookingRepositories cancelBookingRepositories, IHubContext<NewsHub> hubContext)
         {
             _bookingHistoryRepositories = bookingHistoryRepositories;
@@ -21,13 +24,16 @@ namespace BookingVilla.Pages.ManageBookingPages
         }
         public List<BookingHistory> BookingHistoryList { get; set; }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int index = 1)
         {
+            Index = index;
             var userInfoJson = HttpContext.Session.GetString("UserInfo");
             using JsonDocument doc = JsonDocument.Parse(userInfoJson);
             int customerId = doc.RootElement.GetProperty("IdCustomer").GetInt32();
             // Lấy danh sách lịch sử đặt phòng
-            BookingHistoryList = _bookingHistoryRepositories.GetAllBookingHistoryNoStatus(customerId);
+            BookingHistoryList = _bookingHistoryRepositories.GetAllBookingHistoryNoStatusPagination(customerId, index);
+            TotalAccounts = _bookingHistoryRepositories.GetNumberTotalBookingHistoryNoStatus(customerId);
+            NumberPage = _bookingHistoryRepositories.GetNumberBookingHistoryNoStatus(customerId);
             return Page();
         }
         public IActionResult OnGetCancelBooking(int bookingId)

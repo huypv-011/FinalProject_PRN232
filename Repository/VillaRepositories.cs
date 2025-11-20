@@ -22,11 +22,6 @@ namespace Repository
 
         public int AddVilla(Villa villa) => villaDAO.AddVilla(villa);
 
-        public bool DeleteVillaById(int id) => villaDAO.DeleteVillaById(id);
-
-        public List<Villa> GetAllVillas(DateTime currentDate, int amountRoom, int amountPeople) => villaDAO.GetAllVillas(currentDate, amountRoom, amountPeople);
-        public List<Villa> GetAllVillas() => villaDAO.GetAllVillas();
-
         public List<Villa> GetAllVillasByPeople(int index) => villaDAO.GetAllVillasByPeople(index);
 
         public List<Villa> GetAllVillasByPrice(int index) => villaDAO.GetAllVillasByPrice(index);
@@ -51,7 +46,5 @@ namespace Repository
         public void UpdatePriceVilla(PriceVilla priceVilla) => villaDAO.UpdatePriceVilla(priceVilla);
 
         public void UpdateVilla(Villa villa) => villaDAO.UpdateVilla(villa);
-
-        public void UpdateVillaStatus(int id) => villaDAO.UpdateVillaStatus(id);
     }
 }

@@ -6,6 +6,8 @@
 <title>Booking History</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/manager.css" />
 <style>
     /* Your existing styles */
     td span {
@@ -157,6 +159,27 @@
             }
         </tbody>
     </table>
+    <div class="clearfix">
+        <div class="hint-text">Showing <b>12</b> out of <b>@Model.TotalAccounts</b> entries</div>
+        <ul class="pagination">
+            @if (Convert.ToInt32(Model.Index) > 1)
+            {
+                <li class="page-item"><a asp-page="BookingHistory" asp-route-index="@(Convert.ToInt32(Model.Index) - 1)">Previous</a></li>
+            }
+
+            @for (int i = 1; i <= Convert.ToInt32(Model.NumberPage); i++)
+            {
+                <li class="page-item @(Convert.ToInt32(Model.Index) == i ? "active" : "")">
+                    <a asp-page="BookingHistory" asp-route-index="@i" class="page-link">@i</a>
+                </li>
+            }
+
+            @if (Convert.ToInt32(Model.Index) < Convert.ToInt32(Model.NumberPage))
+            {
+                <li class="page-item"><a asp-page="BookingHistory" asp-route-index="@(Convert.ToInt32(Model.Index) + 1)" class="page-link">Next</a></li>
+            }
+        </ul>
+    </div>
 </div>
 <script>
         document.addEventListener('DOMContentLoaded', () => {

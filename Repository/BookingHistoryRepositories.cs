@@ -20,6 +20,16 @@ namespace Repository
 
         public List<BookingHistory> GetAllBookingHistoryStatus(int idCustomer) => _bookinghistoryDAO.GetAllBookingHistoryStatus(idCustomer);
 
-        public BookingHistory GetBookingHistoryById(int idBooking) => _bookinghistoryDAO.GetBookingHistoryById(idBooking);
+        public List<BookingHistory> GetAllBookingHistoryNoStatusPagination(int idCustomer, int index) => _bookinghistoryDAO.GetAllBookingHistoryNoStatusPagination(idCustomer, index);
+
+        public List<BookingHistory> GetAllBookingHistoryStatusPagination(int idCustomer, int index) => _bookinghistoryDAO.GetAllBookingHistoryStatusPagination(idCustomer, index);
+
+        public int GetNumberBookingHistoryNoStatus(int idCustomer) => _bookinghistoryDAO.GetNumberBookingHistoryNoStatus(idCustomer);
+
+        public int GetNumberBookingHistoryStatus(int idCustomer) => _bookinghistoryDAO.GetNumberBookingHistoryStatus(idCustomer);
+
+        public int GetNumberTotalBookingHistoryNoStatus(int idCustomer) => _bookinghistoryDAO.GetNumberTotalBookingHistoryNoStatus(idCustomer);
+
+        public int GetNumberTotalBookingHistoryStatus(int idCustomer) => _bookinghistoryDAO.GetNumberTotalBookingHistoryStatus(idCustomer);
     }
 }

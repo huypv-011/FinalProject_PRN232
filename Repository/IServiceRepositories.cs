@@ -12,10 +12,7 @@ namespace Repository
         List<Service> GetAllService();
         void AddService(Service service);
         Service GetServiceById(int idService);
-        List<Service> GetAllServiceByName();
-        List<Service> GetAllServiceByPrice();
         List<Service> GetServiceByName(string name);
-        List<Service> GetServiceByPrice(double price);
         int EditService(Service service);
         void DeleteService(int idService);
         public List<Service> GetAllServicePagination(int index);

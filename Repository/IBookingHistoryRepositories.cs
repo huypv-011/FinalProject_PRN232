@@ -10,7 +10,11 @@ namespace Repository
     public interface IBookingHistoryRepositories
     {
         List<BookingHistory> GetAllBookingHistoryStatus(int idCustomer);
-        List<BookingHistory> GetAllBookingHistoryNoStatus(int idCustomer);
-        BookingHistory GetBookingHistoryById(int idBooking);
+        public List<BookingHistory> GetAllBookingHistoryStatusPagination(int idCustomer, int index);
+        public int GetNumberTotalBookingHistoryStatus(int idCustomer);
+        public int GetNumberBookingHistoryStatus(int idCustomer);
+        public List<BookingHistory> GetAllBookingHistoryNoStatusPagination(int idCustomer, int index);
+        public int GetNumberTotalBookingHistoryNoStatus(int idCustomer);
+        public int GetNumberBookingHistoryNoStatus(int idCustomer);
     }
 }

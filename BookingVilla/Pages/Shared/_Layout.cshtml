@@ -78,7 +78,7 @@
         margin-left: 70px;
         }
         .drop-menu {
-            border-radius: 10px;
+        border-radius: 10px;
         }
 
     </style>
@@ -117,7 +117,16 @@
                 <nav class="main-menu">
                     <ul>
                         <li><a asp-page="/Index">Home</a></li>
-                        <li><a asp-page="/ShowVilla">Villas</a></li>
+                        @if (userInfo != null)
+                        {
+                            @if (userInfo.Role != "emp")
+                            {
+                                <li><a asp-page="/ShowVilla">Villas</a></li>
+                            }
+                        }
+                        else{
+                            <li><a asp-page="/ShowVilla">Villas</a></li>
+                        }
                         @if (userInfo != null)
                         {
                             @if (userInfo.Role == "emp")

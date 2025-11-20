@@ -10,7 +10,6 @@ namespace Repository
     public interface ICancelBookingRepositories
     {
         public bool AddCancelBooking(CancelBooking cancelBooking);
-        public List<ManageCancelBooking> GetAllCancelBookings(string status);
         public List<ManageCancelBooking> GetAllCancelBookingsPagination(string status, int pageIndex, int pageSize);
         public List<ManageCancelBooking> GetAllCancelBookingsPaginationAll(int pageIndex, int pageSize);
         public int GetTotalCancelBookingCountByStatus(string status);
