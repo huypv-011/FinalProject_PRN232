@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BussinessObject;
 
 public partial class BookingOnline
 {
+    [Key]
     public int IdBookingOnline { get; set; }
 
     public DateTime CheckinDate { get; set; }

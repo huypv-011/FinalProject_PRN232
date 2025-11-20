@@ -31,5 +31,7 @@ namespace Repository
         public int GetNumberTotalBookingHistoryNoStatus(int idCustomer) => _bookinghistoryDAO.GetNumberTotalBookingHistoryNoStatus(idCustomer);
 
         public int GetNumberTotalBookingHistoryStatus(int idCustomer) => _bookinghistoryDAO.GetNumberTotalBookingHistoryStatus(idCustomer);
+
+        public BookingHistory GetBookingHistoryById(int idBooking) => _bookinghistoryDAO.GetBookingHistoryById(idBooking);
     }
 }

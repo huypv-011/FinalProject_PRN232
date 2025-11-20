@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BussinessObject;
 
 public partial class Discount
 {
+    [Key]
     public int IdDiscount { get; set; }
 
     public string? Code { get; set; }

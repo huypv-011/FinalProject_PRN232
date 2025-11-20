@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BussinessObject;
 
 public partial class Villa
 {
+    [Key]
     public int IdVilla { get; set; }
 
     public string? Name { get; set; }

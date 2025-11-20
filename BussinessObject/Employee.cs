@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BussinessObject;
 
 public partial class Employee
 {
+    [Key]
     public int IdEmployee { get; set; }
 
     public string? Name { get; set; }

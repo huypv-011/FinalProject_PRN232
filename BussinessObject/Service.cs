@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BussinessObject;
 
 public partial class Service
 {
+    [Key]
     public int IdService { get; set; }
 
     public string? Name { get; set; }

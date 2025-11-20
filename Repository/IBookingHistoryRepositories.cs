@@ -16,5 +16,6 @@ namespace Repository
         public List<BookingHistory> GetAllBookingHistoryNoStatusPagination(int idCustomer, int index);
         public int GetNumberTotalBookingHistoryNoStatus(int idCustomer);
         public int GetNumberBookingHistoryNoStatus(int idCustomer);
+        public BookingHistory GetBookingHistoryById(int idBooking);
     }
 }
