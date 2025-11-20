@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using BookingVilla.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository;
@@ -77,8 +78,19 @@ namespace BookingVilla.Pages.ManageBookingPages
         {
             // Lấy thông tin người dùng từ session
             var userInfoJson = HttpContext.Session.GetString("UserInfo");
-            var userInfo = JsonSerializer.Deserialize<dynamic>(userInfoJson);
-            int customerId = (int)userInfo.GetProperty("IdCustomer").GetInt32();
+            if (string.IsNullOrEmpty(userInfoJson))
+            {
+                return RedirectToPage("/Auth/Login");
+            }
+
+            var userInfo = JsonSerializer.Deserialize<UserInfo>(userInfoJson);
+            if (userInfo == null)
+            {
+                ErrorMessage = "Không thể lấy thông tin người dùng.";
+                return RedirectToPage("/Auth/Login");
+            }
+
+            int customerId = userInfo.Id;
 
             // Kiểm tra ngày hợp lệ
             if (!DateTime.TryParse(fromDate, out DateTime startDate) || !DateTime.TryParse(toDate, out DateTime endDate))

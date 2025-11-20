@@ -1,4 +1,5 @@
 using BussinessObject;
+using BookingVilla.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository;
@@ -19,8 +20,18 @@ namespace BookingVilla.Pages.ManageBookingPages
         public IActionResult OnGet()
         {
             var userInfoJson = HttpContext.Session.GetString("UserInfo");
-            using JsonDocument doc = JsonDocument.Parse(userInfoJson);
-            int customerId = doc.RootElement.GetProperty("IdCustomer").GetInt32();
+            if (string.IsNullOrEmpty(userInfoJson))
+            {
+                return RedirectToPage("/Auth/Login");
+            }
+
+            var userInfo = JsonSerializer.Deserialize<UserInfo>(userInfoJson);
+            if (userInfo == null)
+            {
+                return RedirectToPage("/Auth/Login");
+            }
+
+            int customerId = userInfo.Id;
             BookingHistoryList = _bookingHistoryRepositories.GetAllBookingHistoryStatus(customerId);
             return Page();
         }
