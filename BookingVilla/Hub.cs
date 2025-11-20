@@ -4,7 +4,7 @@ namespace BookingVilla
 {
     public class NewsHub : Hub
     {
-        //dd
+        
         public async Task SendNewsUpdate(string message)
         {
             await Clients.All.SendAsync("ReceiveNewsUpdate", message);
